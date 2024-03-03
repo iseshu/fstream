@@ -29,7 +29,7 @@ def size_format(b):
         return '%.1f' % float(b/1000000000000) + 'TB'
 
 async def check_file(id):
-    message = await bot.get_messages(-1001922965510)
+    message = await bot.get_messages(-1001922965510, id)
     if message.document or message.audio or message.video:
         file_name = message.document.file_name
         mime_type = message.document.mime_type
@@ -41,13 +41,6 @@ async def read_root():
     me = await bot.get_me()
     user_name = me.username
     return {"message": "Hello World", "bot": user_name}
-
-@app.get('/stream')
-async def stream(link:str,poster:str):
-    if link:
-        filetext = open('templates/stream.html','r').read()
-    else:
-        return {"error":"link not found"}
 
 @app.get("/dl/{item_id}/{file_name}")
 async def read_item(item_id: int, file_name: str):
